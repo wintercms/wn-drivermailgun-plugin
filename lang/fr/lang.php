@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'plugin_name' => "Pilote de courriel Mailgun",
     'plugin_description' => "Ajoute le pilote de courriel Mailgun pour Winter CMS.",
 
     'fields' => [
