@@ -1,0 +1,18 @@
+{
+    "name": "winter/wn-mailgundriver-plugin",
+    "description": "Mailgun Mail Driver",
+    "type": "winter-plugin",
+    "homepage": "https://github.com/wintercms/wn-mailgundriver-plugin",
+    "keywords": [ "mailgun", "wintercms", "mail", "driver" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Jauvin",
+            "email": "marc.jauvin@gmail.com"
+        }
+    ],
+    "require": {
+	"symfony/http-client": "^6.0",
+        "symfony/mailgun-mailer": "^6.0.0"
+    }
+}
