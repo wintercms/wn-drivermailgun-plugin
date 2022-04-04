@@ -1,12 +1,12 @@
 <?php
 
-$name = 'Mailgun API key';
+$name = 'Mailgun secret';
 
 return [
     'plugin_description' => 'Mailgun mail driver plugin',
 
     'fields' => [
-        'mailgun_api_key' => [
+        'mailgun_secret' => [
             'label' => $name,
             'comment' => 'Enter your ' . $name,
         ],

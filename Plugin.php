@@ -36,7 +36,8 @@ class Plugin extends PluginBase
             if ($settings->send_mode === self::MODE_MAILGUN) {
                 $config = App::make('config');
                 $config->set('mail.mailers.mailgun.transport', self::MODE_MAILGUN);
-                $config->set('services.mailgun.api_key', $settings->mailgun_api_key);
+                $config->set('services.mailgun.domain', $settings->mailgun_domain);
+                $config->set('services.mailgun.secret', $settings->mailgun_secret);
             }
         });
     }
@@ -45,7 +46,8 @@ class Plugin extends PluginBase
     {
         MailSetting::extend(function ($model) {
             $model->bindEvent('model.beforeValidate', function () use ($model) {
-                $model->rules['mailgun_api_key'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
+                $model->rules['mailgun_domain'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
+                $model->rules['mailgun_secret'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
             });
         });
 
@@ -61,10 +63,20 @@ class Plugin extends PluginBase
             $field->options(array_merge($field->options(), [self::MODE_MAILGUN => "Mailgun"]));
 
             $widget->addTabFields([
-                'mailgun_api_key' => [
+                'mailgun_domain' => [
                     "tab"     => "system::lang.mail.general",
-                    'label'   => 'winter.mailgundriver::lang.fields.mailgun_api_key.label',
-                    'commentAbove' => 'winter.mailgundriver::lang.fields.mailgun_api_key.comment',
+                    'label'   => 'winter.mailgundriver::lang.fields.mailgun_domain.label',
+                    'commentAbove' => 'winter.mailgundriver::lang.fields.mailgun_domain.comment',
+                    'trigger' => [
+                        'action'    => 'show',
+                        'field'     => 'send_mode',
+                        'condition' => 'value[mailgun]'
+                    ]
+                ],
+                'mailgun_secret' => [
+                    "tab"     => "system::lang.mail.general",
+                    'label'   => 'winter.mailgundriver::lang.fields.mailgun_secret.label',
+                    'commentAbove' => 'winter.mailgundriver::lang.fields.mailgun_secret.comment',
                     'trigger' => [
                         'action'    => 'show',
                         'field'     => 'send_mode',
