@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'plugin_name' => 'Mailgun mail driver',
     'plugin_description' => 'Mailgun mail driver plugin',
 
     'fields' => [

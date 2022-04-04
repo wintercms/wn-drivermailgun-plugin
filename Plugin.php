@@ -22,8 +22,8 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'Mailgun driver',
-            'description' => 'winter.mailgundriver:lang.plugin_description',
+            'name'        => 'winter.mailgundriver::lang.plugin_name',
+            'description' => 'winter.mailgundriver::lang.plugin_description',
             'author'      => 'Winter',
             'icon'        => 'icon-leaf'
         ];
