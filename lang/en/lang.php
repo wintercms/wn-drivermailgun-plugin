@@ -2,7 +2,7 @@
 
 return [
     'plugin_name' => 'Mailgun mail driver',
-    'plugin_description' => 'Mailgun mail driver plugin',
+    'plugin_description' => 'Mailgun mail driver functionality for Winter CMS',
 
     'fields' => [
         'mailgun_domain' => [
