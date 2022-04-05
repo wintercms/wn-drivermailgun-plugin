@@ -1,17 +1,8 @@
 <?php
 
 return [
-    'plugin_name' => "Pilote de courriel Mailgun",
-    'plugin_description' => "Ajoute le pilote de courriel Mailgun pour Winter CMS.",
-
-    'fields' => [
-        'mailgun_domain' => [
-            'label' => "Domaine Mailgun",
-            'comment' => "Veuillez entrer le nom de domaine pour Mailgun",
-        ],
-        'mailgun_secret' => [
-            'label' => "Secret Mailgun",
-            'comment' => "Entrez votre secret Mailgun",
-        ],
-    ],
+    'mailgun_domain' => 'Domaine Mailgun',
+    'mailgun_domain_comment' => 'Saisir le nom de domaine Mailgun.',
+    'mailgun_secret' => 'Clé secrète Mailgun',
+    'mailgun_secret_comment' => 'Saisir votre clé API Mailgun.',
 ];

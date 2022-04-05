@@ -1,19 +1,12 @@
-<?php namespace Winter\MailgunDriver;
+<?php namespace Winter\DriverMailgun;
 
 use App;
-use Backend;
-use Backend\Models\UserRole;
 use Event;
 use System\Classes\PluginBase;
 use System\Models\MailSetting;
 
-use Winter\Storm\Mail\MailManager;
-
-use Symfony\Component\Mailer\Transport\Dsn;
-use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunTransportFactory;
-
 /**
- * SendgridDriver Plugin Information File
+ * DriverMailgun Plugin Information File
  */
 class Plugin extends PluginBase
 {
@@ -22,10 +15,11 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'winter.mailgundriver::lang.plugin_name',
-            'description' => 'winter.mailgundriver::lang.plugin_description',
-            'author'      => 'Winter',
-            'icon'        => 'icon-leaf'
+            'name'        => 'winter.drivermailgun::lang.plugin_name',
+            'description' => 'winter.drivermailgun::lang.plugin_description',
+            'homepage'    => 'https://github.com/wintercms/wn-drivermailgun-plugin',
+            'author'      => 'Winter CMS',
+            'icon'        => 'icon-leaf',
         ];
     }
 
@@ -60,28 +54,31 @@ class Plugin extends PluginBase
             }
 
             $field = $widget->getField('send_mode');
-            $field->options(array_merge($field->options(), [self::MODE_MAILGUN => "Mailgun"]));
+            $field->options(array_merge($field->options(), [self::MODE_MAILGUN => 'Mailgun']));
 
             $widget->addTabFields([
                 'mailgun_domain' => [
-                    "tab"     => "system::lang.mail.general",
-                    'label'   => 'winter.mailgundriver::lang.fields.mailgun_domain.label',
-                    'commentAbove' => 'winter.mailgundriver::lang.fields.mailgun_domain.comment',
+                    'tab'     => 'system::lang.mail.general',
+                    'label'   => 'winter.drivermailgun::lang.mailgun_domain',
+                    'commentAbove' => 'winter.drivermailgun::lang.mailgun_domain_comment',
+                    'span'    => 'left',
                     'trigger' => [
                         'action'    => 'show',
                         'field'     => 'send_mode',
-                        'condition' => 'value[mailgun]'
-                    ]
+                        'condition' => 'value[mailgun]',
+                    ],
                 ],
                 'mailgun_secret' => [
-                    "tab"     => "system::lang.mail.general",
-                    'label'   => 'winter.mailgundriver::lang.fields.mailgun_secret.label',
-                    'commentAbove' => 'winter.mailgundriver::lang.fields.mailgun_secret.comment',
+                    'tab'     => 'system::lang.mail.general',
+                    'label'   => 'winter.drivermailgun::lang.mailgun_secret',
+                    'commentAbove' => 'winter.drivermailgun::lang.mailgun_secret_comment',
+                    'span'    => 'right',
+                    'type'    => 'sensitive',
                     'trigger' => [
                         'action'    => 'show',
                         'field'     => 'send_mode',
-                        'condition' => 'value[mailgun]'
-                    ]
+                        'condition' => 'value[mailgun]',
+                    ],
                 ],
             ]);
         });
