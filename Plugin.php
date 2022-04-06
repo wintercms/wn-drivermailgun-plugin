@@ -10,6 +10,8 @@ use System\Models\MailSetting;
  */
 class Plugin extends PluginBase
 {
+    public $elevated = true;
+    
     const MODE_MAILGUN = 'mailgun';
 
     public function pluginDetails()
