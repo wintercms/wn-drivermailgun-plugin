@@ -32,6 +32,7 @@ class Plugin extends PluginBase
             if ($settings->send_mode === self::MODE_MAILGUN) {
                 $config = App::make('config');
                 $config->set('mail.mailers.mailgun.transport', self::MODE_MAILGUN);
+                $config->set('services.mailgun.endpoint', $settings->mailgun_endpoint);
                 $config->set('services.mailgun.domain', $settings->mailgun_domain);
                 $config->set('services.mailgun.secret', $settings->mailgun_secret);
             }
@@ -42,6 +43,7 @@ class Plugin extends PluginBase
     {
         MailSetting::extend(function ($model) {
             $model->bindEvent('model.beforeValidate', function () use ($model) {
+                $model->rules['mailgun_endpoint'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
                 $model->rules['mailgun_domain'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
                 $model->rules['mailgun_secret'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
             });
@@ -59,6 +61,23 @@ class Plugin extends PluginBase
             $field->options(array_merge($field->options(), [self::MODE_MAILGUN => 'Mailgun']));
 
             $widget->addTabFields([
+                'mailgun_endpoint' => [
+                    'tab'     => 'system::lang.mail.general',
+                    'type'    => 'dropdown',
+                    'label'   => 'winter.drivermailgun::lang.mailgun_endpoint',
+                    'options' => [
+                        'api.mailgun.net' => 'US - api.mailgun.net',
+                        'api.eu.mailgun.net' => 'EU - api.eu.mailgun.net',
+                    ],
+                    'commentAbove' => 'winter.drivermailgun::lang.mailgun_endpoint_comment',
+                    'span'    => 'full',
+                    'trigger' => [
+                        'action'    => 'show',
+                        'field'     => 'send_mode',
+                        'condition' => 'value[mailgun]',
+                    ],
+                    'default' => config('services.mailgun.endpoint'),
+                ],
                 'mailgun_domain' => [
                     'tab'     => 'system::lang.mail.general',
                     'label'   => 'winter.drivermailgun::lang.mailgun_domain',
