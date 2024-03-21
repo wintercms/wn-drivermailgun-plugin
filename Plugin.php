@@ -47,6 +47,9 @@ class Plugin extends PluginBase
                 $model->rules['mailgun_domain'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
                 $model->rules['mailgun_secret'] = 'required_if:send_mode,' . self::MODE_MAILGUN;
             });
+            $model->mailgun_endpoint = config('services.mailgun.endpoint');
+            $model->mailgun_domain = config('services.mailgun.domain');
+            $model->mailgun_secret = config('services.mailgun.secret');
         });
 
         Event::listen('backend.form.extendFields', function ($widget) {
