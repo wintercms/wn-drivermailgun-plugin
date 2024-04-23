@@ -4,6 +4,8 @@ use App;
 use Event;
 use System\Classes\PluginBase;
 use System\Models\MailSetting;
+use Symfony\Component\Mailer\Transport\Dsn;
+use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunTransportFactory;
 
 /**
  * DriverMailgun Plugin Information File
@@ -28,12 +30,27 @@ class Plugin extends PluginBase
     public function register()
     {
         Event::listen('mailer.beforeRegister', function ($mailManager) {
+            $mailManager->extend(self::MODE_MAILGUN, function ($config) {
+                $factory = new MailgunTransportFactory();
+
+                if (!isset($config['secret'])) {
+                    $config = $this->app['config']->get('services.mailgun', []);
+                }
+
+                return $factory->create(new Dsn(
+                    'mailgun+'.($config['scheme'] ?? 'https'),
+                    $config['endpoint'] ?? 'default',
+                    $config['secret'],
+                    $config['domain']
+                ));
+            });
+
             $settings = MailSetting::instance();
             if ($settings->send_mode === self::MODE_MAILGUN) {
                 $config = App::make('config');
                 $config->set('mail.mailers.mailgun.transport', self::MODE_MAILGUN);
-                $config->set('services.mailgun.endpoint', $settings->mailgun_endpoint);
                 $config->set('services.mailgun.domain', $settings->mailgun_domain);
+                $config->set('services.mailgun.endpoint', $settings->mailgun_endpoint);
                 $config->set('services.mailgun.secret', $settings->mailgun_secret);
             }
         });
