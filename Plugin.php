@@ -19,8 +19,8 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'winter.drivermailgun::lang.plugin_name',
-            'description' => 'winter.drivermailgun::lang.plugin_description',
+            'name'        => 'winter.drivermailgun::lang.plugin.name',
+            'description' => 'winter.drivermailgun::lang.plugin.description',
             'homepage'    => 'https://github.com/wintercms/wn-drivermailgun-plugin',
             'author'      => 'Winter CMS',
             'icon'        => 'icon-leaf',
