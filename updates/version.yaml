@@ -1,1 +1,2 @@
 '1.0.0': 'Initial release'
+'1.1.0': 'Added support for configuring the Mailgun API endpoint (US / EU), added defaults sourced from services.php and .env, registered our own Mailgun transport factory, and fixed the plugin name and description localization keys.'
